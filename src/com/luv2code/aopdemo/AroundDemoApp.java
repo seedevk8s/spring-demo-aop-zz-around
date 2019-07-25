@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.luv2code.aopdemo.dao.AccountDAO;
+import com.luv2code.aopdemo.service.TrafficFortuneService;
 
-public class AfterReturningDemoApp {
+public class AroundDemoApp {
 
 	public static void main(String[] args) {
 		
@@ -14,22 +15,21 @@ public class AfterReturningDemoApp {
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DemoConfig.class);
 		
 		// get the bean from spring container
-		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		// AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
 		
-		// call method to find the accounts
-		List<Account> theAccounts = theAccountDAO.findAccounts(false);
+		TrafficFortuneService theFortuneService =
+					context.getBean("trafficFortuneService", TrafficFortuneService.class);
 		
+		System.out.println("\nMain Program: AroundDemoApp");
 		
+		System.out.println("Calling getFortune");
 		
-		// display the accounts
-		System.out.println("\n\nMain Program: AfterReturningDemoApp");
-		System.out.println("-----------------");
+		String data = theFortuneService.getFortune();
 		
-		System.out.println(theAccounts);
+		System.out.println("\nMy fortune is: "+ data);
 		
-		System.out.println("\n");
+		System.out.println("Finished");
 		
-				
 		// close the context
 		context.close();
 	}
